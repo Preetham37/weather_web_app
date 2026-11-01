@@ -18,19 +18,26 @@ def process_weather_data(data_from_api):
                             "Wind Speed":f"{dict_dat['current']['wind_kph']}km/h",
                             "Cloud Coverage":f"{dict_dat['current']['cloud']}%"
                             }
-        display_weather(needed_weather_data)
         return needed_weather_data
 
 def gets_weather_data():
     try:
         data_from_api=requests.get(os.getenv("WEB_URL_API"),timeout=10)
         data_from_api.raise_for_status()
-        process_weather_data(data_from_api)
+        return data_from_api
     except requests.exceptions.ConnectionError:
         print("Connection error")
     except requests.exceptions.Timeout:
         print("Connection time out")
     except requests.exceptions.RequestException as e:
         print(f"Request failed : {e}")
+    return
 
-gets_weather_data()
+def main():
+    weather_api_data=gets_weather_data()
+    if weather_api_data is None:
+        return
+    refined_data=process_weather_data(weather_api_data)
+    display_weather(refined_data)
+
+main()
