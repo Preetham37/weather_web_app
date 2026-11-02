@@ -1,0 +1,17 @@
+from flask import Flask,render_template
+
+app=Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+     
+
+@app.route("/about")
+def hello():
+    return "this is a website backend and I am starter and want to learn some things like this"
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
