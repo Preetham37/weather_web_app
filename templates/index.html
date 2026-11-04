@@ -2,9 +2,17 @@
 <html>
     <head>
         <title>start Flask</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <h1>This is a start of big full stack projects</h1>
-        <p>I am learning this to become a grate developer and i hope to build soo meny things with this skil</p>
+        <h1>wellcome to the website</h1>
+        <h3>you can find the location select your city to get the weather information</h3>
+
+        <form action="/search" method="post">
+
+            <input type="text" name="city" placeholder="search for city">
+            <button type="submit">Search</button>
+
+        </form>
     </body>
 </html>
