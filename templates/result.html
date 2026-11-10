@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>restult page</title>
+    </head>
+    <body>
+        <h1>these are the citys we can find for your search</h1>
+        <form action="/weather_info" method="post">
+
+            {% for location in location_list %}
+            <div>
+                <input type="radio" name="location_id" value="{{location.id}}">
+                {{location.name}}
+                {{location.region}}
+                {{location.country}}
+            </div>
+            {% endfor %}
+
+            <button type="submit">submit</button>
+        </form>
+    </body>
+</html>

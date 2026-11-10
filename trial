@@ -1,12 +1,12 @@
 from flask import Flask,render_template,request
+from get_weather_data import get_location_list,api_error_check
 
 app=Flask(__name__)
 
 @app.route("/")
 def home():
-    user = "crasey guy"
-    return render_template("index.html",username=user,is_student=False)
-     
+    return render_template("index.html",is_student=False)
+    
 
 @app.route("/about")
 def hello():
@@ -16,7 +16,17 @@ def hello():
 @app.route("/search",methods=["POST"])
 def search():
     city=request.form.get("city")
-    return f"you search for the city : {city} "
+    location_list=api_error_check(0,city)
+
+    return render_template("result.html",location_list=location_list)
+
+@app.route("/weather_info",methods=["POST"])
+def weather():
+    selected_location=request.form.get("location_id")
+    location_weather=api_error_check(selected_location,0)
+    print(location_weather["current"])
+
+    return render_template("weather.html",location_weather=location_weather)
 
 if __name__ == "__main__":
     app.run(debug=True)
