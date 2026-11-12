@@ -24,7 +24,7 @@ def search():
 def weather():
     selected_location=request.form.get("location_id")
     location_weather=api_error_check(selected_location,0)
-    print(location_weather["current"])
+    
 
     return render_template("weather.html",location_weather=location_weather)
 

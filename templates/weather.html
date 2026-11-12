@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+        <script src="https://kit.fontawesome.com/06cc06012f.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1>the area you selected is </h1>
+        <header>
+            <button> <i class="fa-solid fa-circle-arrow-left"></i> </button>
+        </header>
+        <h1>today weather in {{location_weather.location.name}}</h1>
+        <h3>temparature is {{}}</h3>
     </body>
 </html>

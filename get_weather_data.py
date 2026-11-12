@@ -9,16 +9,16 @@ def display_weather(weather_data):
         print(f"{key}:{value}")
 
 def process_weather_data(data_from_api):
-    if data_from_api.status_code==200:
+    # if data_from_api.status_code==200:
 
-        dict_dat=data_from_api.json()
-        needed_weather_data={"Location":dict_dat['location']['name'],
-                            "Temperature":f"{dict_dat['current']['temp_c']}°C",
-                            "Humidity":f"{dict_dat['current']['humidity']}%",
-                            "Wind Speed":f"{dict_dat['current']['wind_kph']}km/h",
-                            "Cloud Coverage":f"{dict_dat['current']['cloud']}%"
-                            }
-        return needed_weather_data
+    dict_dat=data_from_api
+    needed_weather_data={"Location":dict_dat['location']['name'],
+                        "Temperature":f"{dict_dat['current']['temp_c']}°C",
+                        "Humidity":f"{dict_dat['current']['humidity']}%",
+                        "Wind Speed":f"{dict_dat['current']['wind_kph']}km/h",
+                        "Cloud Coverage":f"{dict_dat['current']['cloud']}%"
+                        }
+    return needed_weather_data
 
 def api_error_check(location_id,search_location):
     try:
@@ -49,7 +49,7 @@ def get_location_list(request_json):
         print(f"{inedex} . {data['name']}\n    {data['region']}\n    {data['country']}\n")
     return request_json
 
-def get_location_info():
+def print_and_ask_location(request_json):
     # asks the user to select a location from the returened list 
     search_name_index=int(input("enter the no of location : "))
     
@@ -66,17 +66,12 @@ def get_location_info():
 
 
 def main():
-    search_location=input("enter a location : ")
-
-    location_api_data=get_location_list(api_error_check(0,search_location))
-
-    print(location_api_data)
-    weather_api_data=api_error_check(location_api_data,0)
-    if weather_api_data is None:
-        return
-    refined_data=process_weather_data(weather_api_data)
-    display_weather(refined_data)
-
-
+    user_search_name=input("enter the city you want : ")
+    city_list=api_error_check(0,user_search_name)
+    get_location_list(city_list)
+    index_of_selected_location=int(input("enter the city index to get the weather : "))
+    city_weather_info=api_error_check(city_list[index_of_selected_location-1]["id"],0)
+    refined_weather_data=process_weather_data(data_from_api=city_weather_info)
+    display_weather(refined_weather_data)
 if __name__=="__main__":
     main()
